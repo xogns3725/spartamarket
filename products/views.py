@@ -68,12 +68,12 @@ def update(request, pk):
 @require_POST
 def like(request, pk):
     if request.user.is_authenticated:
-        article = get_object_or_404(Article, pk=pk)
-        if article.like_users.filter(pk=request.user.pk).exists():
-            article.like_users.remove(request.user)
+        product = get_object_or_404(Product, pk=pk)
+        if product.like_users.filter(pk=request.user.pk).exists():
+            product.like_users.remove(request.user)
         else:
-            article.like_users.add(request.user)
+            product.like_users.add(request.user)
     else:
         return redirect("accounts:login")
 
-    return redirect("articles:articles")
+    return redirect("products:products")

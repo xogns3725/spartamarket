@@ -14,6 +14,16 @@
         <br>
     </li>
 
+    <form action="{% url 'products:like' product.pk %}" method="POST">
+        {% csrf_token %}
+        {% if user in product.like_users.all %}
+        <p>❤ {{ product.like_users.count }}</p>
+        <input type="submit" value="좋아요 취소">
+        {% else %}
+        <p>❤ {{ product.like_users.count }}</p>
+        <input type="submit" value="좋아요">
+        {% endif %}
+    </form>
     {% endfor %}
 </ul>
 
