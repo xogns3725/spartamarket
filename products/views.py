@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .forms import ProductForm
 
+
 def index(request):
     return render(request, "products/index.html")
 
-# 상품페이지
+
 def products(request):
     products = Product.objects.all()
     context = {
@@ -13,7 +14,7 @@ def products(request):
     }
     return render(request, "products/products.html", context)
 
-# 상품 상세페이지
+
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {
@@ -21,7 +22,7 @@ def product_detail(request, pk):
     }
     return render(request, "products/product_detail.html", context)
 
-# 상품 등록페이지
+
 # @login_required
 def create(request):
     if request.method == "POST":
@@ -37,6 +38,7 @@ def create(request):
     context = {"form": form}
     return render(request, "products/create.html", context)
 
+
 def delete(request, pk):
     product = Product.objects.get(pk=pk)
     # if article.author != request.user:
@@ -45,3 +47,19 @@ def delete(request, pk):
         product.delete()
         return redirect("products:products")
     return redirect("products:product_detail", product.pk)
+
+
+def update(request, pk):
+    product = Product.objects.get(pk=pk)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            product = form.save()
+            return redirect("products:product_detail", product.pk)
+    else:
+        form = ProductForm(instance=product)
+    context = {
+        "form": form,
+        "product": product,
+    }
+    return render(request, "products/update.html", context)
