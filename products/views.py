@@ -36,3 +36,12 @@ def create(request):
 
     context = {"form": form}
     return render(request, "products/create.html", context)
+
+def delete(request, pk):
+    product = Product.objects.get(pk=pk)
+    # if article.author != request.user:
+    #     return HttpResponseForbidden("권한이 없습니다")
+    if request.method == "POST":
+        product.delete()
+        return redirect("products:products")
+    return redirect("products:product_detail", product.pk)
