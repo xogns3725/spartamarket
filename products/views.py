@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .forms import ProductForm
-
+from django.views.decorators.http import require_POST
 
 def index(request):
     return render(request, "products/index.html")
@@ -63,3 +63,17 @@ def update(request, pk):
         "product": product,
     }
     return render(request, "products/update.html", context)
+
+
+@require_POST
+def like(request, pk):
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        if article.like_users.filter(pk=request.user.pk).exists():
+            article.like_users.remove(request.user)
+        else:
+            article.like_users.add(request.user)
+    else:
+        return redirect("accounts:login")
+
+    return redirect("articles:articles")
