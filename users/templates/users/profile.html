@@ -5,10 +5,25 @@
 
     <div>
         <h2>username : {{ member.username }}</h2>
-        
+        <p>
+            팔로워 : {{ member.followers.count }}명
+            팔로잉 : {{ member.following.count }}명
+        </p>
     </div>
 
-   
+    <div>
+        {% if request.user != member %}
+        <form action="{% url 'users:follow' member.pk %}" method="POST">
+            {% csrf_token %}
+            {% if user in member.followers.all %}
+                <button type="submit">언팔로우</button>
+            {% else %}
+                <button type="submit">팔로우</button>
+            {% endif %}
+        </form>
+        {% endif %}
+        
+    </div>
 
     <a href="/index/">홈으로 돌아가기</a>
 
