@@ -10,6 +10,10 @@
     <div class="navbar">
         {% if request.user.is_authenticated %}
         <h3>안녕하세요, {{ user }}님</h3>
+        <form action="{% url 'accounts:logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="로그아웃">
+        </form>
 
         {% else %}
         <a href="{% url 'accounts:signup'%}">회원가입</a>
