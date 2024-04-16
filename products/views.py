@@ -29,7 +29,7 @@ def create(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save(commit=False)
-            # product.author = request.user
+            product.author = request.user
             product.save()
             return redirect("products:product_detail", product.id)
     else:

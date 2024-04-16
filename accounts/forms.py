@@ -5,13 +5,22 @@ from django.urls import reverse
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = UserCreationForm.Meta.fields + ()
+        fields = ("username", "password1", "password2", "email")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = '아이디'
+        self.fields['password1'].label = '비밀번호'
+        self.fields['password2'].label = '비밀번호 확인'
+        self.fields['email'].label = '이메일'
+
+    
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = (
             "username",
+            'email',
         )
 
     def __init__(self, *args, **kwargs):
