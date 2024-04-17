@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<h1>New Product</h1>
+<div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+        <h1 class="text-center mb-5">물건 판매하기</h1>
 
-<form action="{% url 'products:create' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">저장</button>
-</form>
-<a href="{% url 'products:products' %}">목록으로</a>
+        <form action="{% url 'products:create' %}" method="POST" enctype="multipart/form-data" class="mb-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary d-block">저장</button>
+        </form>
+        <a href="{% url 'products:products' %}" class="btn btn-secondary">목록으로</a>
+    </div>
+</div>
 {% endblock content %}

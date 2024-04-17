@@ -1,0 +1,53 @@
+body {
+    background-image: url('/media/images/bgd.jpg');
+    background-size: cover;
+    /* 배경 이미지를 화면에 꽉 채우도록 설정합니다. */
+    background-position: center;
+    /* 배경 이미지를 가운데에 정렬합니다. */
+    background-repeat: repeat;
+    height: 100vh;
+    /* 화면의 높이를 100%로 설정합니다. */
+}
+
+.container {
+    margin-top: 5rem;
+}
+
+.navigation {
+    position: fixed;
+    /* 화면 상단에 고정합니다. */
+    top: 0;
+    /* 화면 상단에 위치시킵니다. */
+    width: 100%;
+    /* 너비를 화면 전체로 설정합니다. */
+    z-index: 1000;
+    /* 다른 요소들 위에 나타나도록 인덱스를 설정합니다. */
+}
+
+.navigation .nav-link {
+    color: black;
+}
+
+#back-to-top-button:hover {
+    background-color: #f7fbff;
+    /* 마우스 호버 시 배경색 변경 */
+}
+
+#floating-button {
+    animation: bounce 2s infinite;
+    /* bounce 애니메이션을 2초 동안 반복 */
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        /* 시작과 끝 지점 */
+    }
+
+    50% {
+        transform: translateY(-20px);
+        /* 중간 지점, 위로 20px 이동 */
+    }
+}

@@ -1,30 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Products</h1>
 
-<a href="{% url 'products:create' %}">새 글 작성</a>
 
-<ul>
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <h1 class="text-center mb-5">스파르타 마켓</h1>
+    <button type="button" class="btn btn-primary">
+        <a href="{% url 'products:create' %}" class="text-white text-decoration-none">물건 판매하기</a>
+    </button>
+</div>
+
+<hr>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for product in products %}
-    <li>
-        <a href="{% url 'products:product_detail' product.id %}">
-            <div>[{{ product.id }}] {{ product.title }} {{ product.author }}</div>
-        </a>
-        <br>
-    </li>
-
-    <form action="{% url 'products:like' product.pk %}" method="POST">
-        {% csrf_token %}
-        {% if user in product.like_users.all %}
-        <p>❤ {{ product.like_users.count }}</p>
-        <input type="submit" value="좋아요 취소">
-        {% else %}
-        <p>❤ {{ product.like_users.count }}</p>
-        <input type="submit" value="좋아요">
-        {% endif %}
-    </form>
+    <div class="col">
+        <div class="card bg-transparent border-0" style="width: 18rem;">
+            <a href="{% url 'products:product_detail' product.id %}">
+                <img src="/media/images/teddy-bear.png" class="card-img-top" alt="...">
+            </a>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent">{{ product.title }}</li>
+                <li class="list-group-item bg-transparent">500,000원</li>
+                <form action="{% url 'products:like' product.pk %}" method="POST"
+                    class="list-group-item bg-transparent">
+                    {% csrf_token %}
+                    {% if user in product.like_users.all %}
+                    <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기 취소"
+                            class="btn btn-outline-danger"></p>
+                    {% else %}
+                    <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기"
+                            class="btn btn-outline-primary"></p>
+                    {% endif %}
+                </form>
+            </ul>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% endblock content %}

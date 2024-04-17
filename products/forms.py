@@ -6,3 +6,9 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = "__all__"
         exclude = ["author", "like_users"]
+
+        labels = {
+            'title': '상품명',
+            'content': '내용',
+            'image': '이미지',
+        }

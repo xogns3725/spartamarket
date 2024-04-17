@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block content %}
-<h1>INDEX PAGE</h1>
 
-<ul>
-	<li><a href="{% url 'products:products' %}">Products</a></li>
-</ul>
+<div class="row align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="mb-4">Sparta Market</h1>
+        <a href="{% url 'products:products' %}" class="btn btn-primary">마켓 입장하기</a>
+    </div>
+</div>
 
 {% endblock content %}
