@@ -13,11 +13,12 @@
         {% endif %}
 
         <p>내용: {{ product.content }}</p>
-        <p>글 작성일: {{ product.created_at }}</p>
+        <p>내용: {{ product.author }}</p>
+        <p>글 작성일: {{ product.created_at|date:"Y/m/d H:i" }}</p>
 
         
         <hr>
-        
+        {% if product.author_id == user.pk %}
         <div class="row">
             <div class="col text-start">
                 <a href="{% url 'products:update' product.pk %}" class="btn btn-warning">글 수정</a>
@@ -29,6 +30,7 @@
                 </form>
             </div>
         </div>
+        {% endif %}
     </div>
     <div id="floating-button" class="text-end">
         <a href="{% url 'products:products' %}" id="back-to-top-button">Home</a>

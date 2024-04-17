@@ -19,7 +19,7 @@
         <ul class="nav justify-content-end">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">{{ user }}</a>
+                <a class="nav-link" aria-current="page" href="{% url 'users:profile' username=user.username %}">{{ user }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:update' %}">회원정보수정</a>
@@ -28,12 +28,6 @@
                 <form action="{% url 'accounts:logout' %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="nav-link logout-btn">로그아웃</button>
-                </form>
-            </li>
-            <li class="nav-item">
-                <form action="{% url 'accounts:delete' %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="nav-link delete-btn">회원탈퇴</button>
                 </form>
             </li>
         </ul>
@@ -48,7 +42,6 @@
         </ul>
         {% endif %}
     </div>
-    
     
     <div class="container">
         {% block content %}

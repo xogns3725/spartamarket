@@ -11,4 +11,5 @@ class ProductForm(forms.ModelForm):
             'title': '상품명',
             'content': '내용',
             'image': '이미지',
+            'price' : '가격',
         }

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .forms import ProductForm
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "products/index.html")
@@ -23,7 +24,7 @@ def product_detail(request, pk):
     return render(request, "products/product_detail.html", context)
 
 
-# @login_required
+@login_required
 def create(request):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
@@ -31,7 +32,7 @@ def create(request):
             product = form.save(commit=False)
             product.author = request.user
             product.save()
-            return redirect("products:product_detail", product.id)
+            return redirect("products:products")
     else:
         form = ProductForm()
 
@@ -40,9 +41,7 @@ def create(request):
 
 
 def delete(request, pk):
-    product = Product.objects.get(pk=pk)
-    # if article.author != request.user:
-    #     return HttpResponseForbidden("권한이 없습니다")
+    product = get_object_or_404(Product, pk=pk)
     if request.method == "POST":
         product.delete()
         return redirect("products:products")

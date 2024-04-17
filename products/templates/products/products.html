@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
 
@@ -21,7 +22,7 @@
             </a>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-transparent">{{ product.title }}</li>
-                <li class="list-group-item bg-transparent">500,000원</li>
+                <li class="list-group-item bg-transparent">{{ product.price|intcomma }}원</li>
                 <form action="{% url 'products:like' product.pk %}" method="POST"
                     class="list-group-item bg-transparent">
                     {% csrf_token %}
