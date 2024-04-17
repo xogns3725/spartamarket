@@ -18,7 +18,11 @@
     <div class="col">
         <div class="card bg-transparent border-0" style="width: 18rem;">
             <a href="{% url 'products:product_detail' product.id %}">
-                <img src="/media/images/teddy-bear.png" class="card-img-top" alt="...">
+                <div class="image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
+                    {% endif %}
+                </div>
             </a>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-transparent">{{ product.title }}</li>

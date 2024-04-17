@@ -5,13 +5,12 @@
 
 <div class="row justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-md-6">
-        <P><img src="/media/images/teddy-bear.png" class="card-img-top" alt="..."></P>
-        <p>상품명: {{ product.title }}</p>
-
+        
         {% if product.image %}
-        <img src="{{ product.image.url }}">
+        <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
         {% endif %}
-
+        
+        <p>상품명: {{ product.title }}</p>
         <p>내용: {{ product.content }}</p>
         <p>내용: {{ product.author }}</p>
         <p>글 작성일: {{ product.created_at|date:"Y/m/d H:i" }}</p>
