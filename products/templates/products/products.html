@@ -21,6 +21,8 @@
                 <div class="image">
                     {% if product.image %}
                     <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
+                    {% else %}
+                    <img src="/static/image/user.png" style="width: 100%; height: auto;">
                     {% endif %}
                 </div>
             </a>
