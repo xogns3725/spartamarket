@@ -4,6 +4,7 @@ from .forms import ProductForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
+
 def index(request):
     return render(request, "products/index.html")
 
@@ -77,3 +78,18 @@ def like(request, pk):
 
     return redirect("products:products")
 
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        results = Product.objects.filter(
+            title__icontains=query
+        ) | Product.objects.filter(
+            content__icontains=query
+        ) | Product.objects.filter(
+            author__username__icontains=query
+        )
+    else:
+        results = None
+
+    return render(request, 'products/products.html', {'results': results})
