@@ -9,11 +9,11 @@ def users(request):
 
 
 def profile(request, username):
-    member = get_object_or_404(get_user_model(), username=username)
-    liked_products = Product.objects.filter(like_users=member)
+    user = get_object_or_404(get_user_model(), username=username)
+    liked_products = Product.objects.filter(like_users=user)
     profile_image = User.objects.filter(username=username)
     context = {
-        "member": member,
+        "user": user,
         'liked_products': liked_products,
         'profile_image' : profile_image
     }

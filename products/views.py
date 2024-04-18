@@ -34,7 +34,7 @@ def create(request):
             product = form.save(commit=False)
             product.author = request.user
             product.save()
-            return redirect("products:products")
+            return redirect("products:product_detail", product.pk)
     else:
         form = ProductForm()
 
@@ -95,10 +95,13 @@ def search(request):
 
     return render(request, 'products/products.html', {'results': results})
 
+
 def order(request):
     order = request.GET.get('order')
     if order == 'latest':
         order_products = Product.objects.order_by('-created_at')
     else:
-        order_products = Product.objects.annotate(popular=Count('like_users')).order_by('-popular', '-created_at')
-    return render(request, 'products/products.html', {'order_products':order_products})
+        order_products = Product.objects.annotate(popular=Count(
+            'like_users')).order_by('-popular', '-created_at')
+    return render(request, 'products/products.html', {'order_products': order_products})
+

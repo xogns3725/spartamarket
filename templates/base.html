@@ -19,7 +19,7 @@
         <ul class="nav justify-content-end">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'users:profile' username=user.username %}">{{ user }}</a>
+                <a class="nav-link" aria-current="page" href="{% url 'users:profile' request.user.username %}">{{ request.user.username }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:update' %}">회원정보수정</a>

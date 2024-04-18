@@ -32,39 +32,43 @@
 
 <!-- 정렬 결과 -->
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-{% if order_products %}
-{% for product in order_products %}
-<div class="col">
-    <div class="card bg-transparent border-0" style="width: 18rem;">
-        <a href="{% url 'products:product_detail' product.id %}">
-            <div class="image">
-                {% if product.image %}
-                <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
-                {% else %}
-                <img src="/static/image/user.png" style="width: 100%; height: auto;">
-                {% endif %}
-            </div>
-        </a>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item bg-transparent">{{ product.title }}</li>
-            <li class="list-group-item bg-transparent">{{ product.price|intcomma }}원</li>
-            <form action="{% url 'products:like' product.pk %}" method="POST" class="list-group-item bg-transparent">
-                {% csrf_token %}
-                {% if user in product.like_users.all %}
-                <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기 취소" class="btn btn-outline-danger">
-                </p>
-                {% else %}
-                <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기" class="btn btn-outline-primary">
-                </p>
-                {% endif %}
-            </form>
-        </ul>
+    {% if order_products %}
+    {% for product in order_products %}
+    <div class="col">
+        <div class="card bg-transparent border-0" style="width: 18rem;">
+            <a href="{% url 'products:product_detail' product.id %}">
+                <div class="image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
+                    {% else %}
+                    <img src="/static/image/user.png" style="width: 100%; height: auto;">
+                    {% endif %}
+                </div>
+            </a>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent">{{ product.title }}</li>
+                <li class="list-group-item bg-transparent">{{ product.price|intcomma }}원</li>
+                <form action="{% url 'products:like' product.pk %}" method="POST"
+                    class="list-group-item bg-transparent">
+                    {% csrf_token %}
+                    {% if user in product.like_users.all %}
+                    <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기 취소"
+                            class="btn btn-outline-danger">
+                    </p>
+                    {% else %}
+                    <p>❤ {{ product.like_users.count }} <input type="submit" value="찜하기"
+                            class="btn btn-outline-primary">
+                    </p>
+                    {% endif %}
+                </form>
+            </ul>
+        </div>
     </div>
-</div>
-{% endfor %}
-{% endif %}
+    {% endfor %}
+    {% endif %}
 </div>
 
+<br>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <!-- 검색 결과가 있을 경우 -->
     {% if results %}

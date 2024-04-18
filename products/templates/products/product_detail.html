@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% load static %}
 {% block content %}
 
@@ -12,8 +12,10 @@
         
         <p>상품명: {{ product.title }}</p>
         <p>내용: {{ product.content }}</p>
+        <p>가격: {{ product.price | intcomma }}</p>
         <p>작성자: <a href="{% url 'users:profile' product.author.username %}">{{ product.author }}</a></p>
         <p>글 작성일: {{ product.created_at|date:"Y/m/d H:i" }}</p>
+        <p>#곰돌이 #빨강</p>
 
         
         <hr>
