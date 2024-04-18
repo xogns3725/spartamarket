@@ -3,6 +3,7 @@ from .models import Product
 from .forms import ProductForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 
 def index(request):
@@ -93,3 +94,11 @@ def search(request):
         results = None
 
     return render(request, 'products/products.html', {'results': results})
+
+def order(request):
+    order = request.GET.get('order')
+    if order == 'latest':
+        order_products = Product.objects.order_by('-created_at')
+    else:
+        order_products = Product.objects.annotate(popular=Count('like_users')).order_by('-popular', '-created_at')
+    return render(request, 'products/products.html', {'order_products':order_products})
