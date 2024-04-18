@@ -5,7 +5,10 @@
 
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h1 class="text-center mb-5">스파르타 마켓</h1>
+    <a href="{% url 'products:products' %}" class="text-decoration-none">
+        <h1 class="text-center mb-5">스파르타 마켓</h1>
+    </a>
+    
     <button type="button" class="btn btn-primary">
         <a href="{% url 'products:create' %}" class="text-white text-decoration-none">물건 판매하기</a>
     </button>
@@ -14,6 +17,7 @@
 <hr>
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    
     {% for product in products %}
     <div class="col">
         <div class="card bg-transparent border-0" style="width: 18rem;">

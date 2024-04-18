@@ -2,9 +2,18 @@
 {% load humanize %}
 
 {% block content %}
-<h1>{{ user.username }}의 프로필 페이지</h1>
+<h1 class="mb-5">{{ user.username }}의 프로필 페이지</h1>
 
 <div>
+    <div class="image">
+        <h2>프로필 사진</p>
+        {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" style="width: 20%; height: auto;">
+        {% else %}
+        <img src="/static/image/user.png" style="width: 20%; height: auto;">
+        {% endif %}
+
+    </div>
     <h2>이름 : {{ user.username }}</h2>
     <p>
         팔로워 : {{ user.followers.count }}명
@@ -36,6 +45,8 @@
                 <div class="image">
                     {% if product.image %}
                     <img src="{{ product.image.url }}" style="width: 100%; height: auto;">
+                    {% else %}
+                    <img src="/static/image/teddy-bear.png" style="width: 100%; height: auto;">
                     {% endif %}
                 </div>
             </a>
@@ -43,7 +54,8 @@
                 <li class="list-group-item bg-transparent">{{ product.title }}</li>
                 <li class="list-group-item bg-transparent">{{ product.price|intcomma }}원</li>
                 {% if request.user == user %}
-                <form action="{% url 'users:unlike' product.pk %}" method="post" class="like-form" data-product-id="{{ product.id }}">
+                <form action="{% url 'users:unlike' product.pk %}" method="post" class="like-form"
+                    data-product-id="{{ product.id }}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-danger unlike-btn">찜하기 취소</button>
                 </form>

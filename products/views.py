@@ -76,3 +76,4 @@ def like(request, pk):
         return redirect("accounts:login")
 
     return redirect("products:products")
+
