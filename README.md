@@ -4,14 +4,14 @@
 
 --- 
 ### 목차
-- 와이어프레임
+- ERD
 - 주요 기능
 - 개발 기간
 - 기술스택
 
 <br>
 
-### 와이어프레임
+### ERD
 ---
 ![image](https://github.com/xogns3725/spartamarket/assets/76471333/0438b0a2-f845-402e-9785-a108161963ce)
 

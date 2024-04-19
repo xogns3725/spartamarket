@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
+from .models import Product, Hashtag
 from .forms import ProductForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -34,6 +34,12 @@ def create(request):
             product = form.save(commit=False)
             product.author = request.user
             product.save()
+            hashtags_input = request.POST.get('hashtags')
+            if hashtags_input:
+                hashtags_list = [tag.strip() for tag in hashtags_input.split('#') if tag.strip()]
+                for tag in hashtags_list:
+                    hashtag, created = Hashtag.objects.get_or_create(tag=tag)
+                    product.hashtags.add(hashtag)
             return redirect("products:product_detail", product.pk)
     else:
         form = ProductForm()
@@ -55,7 +61,15 @@ def update(request, pk):
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
-            product = form.save()
+            product = form.save(commit=False)
+            product.save()
+            product.hashtags.clear()
+            hashtags_input = request.POST.get('hashtags')
+            if hashtags_input:
+                hashtags_list = [tag.strip() for tag in hashtags_input.split('#') if tag.strip()]
+                for tag in hashtags_list:
+                    hashtag, created = Hashtag.objects.get_or_create(tag=tag)
+                    product.hashtags.add(hashtag)
             return redirect("products:product_detail", product.pk)
     else:
         form = ProductForm(instance=product)
@@ -64,7 +78,6 @@ def update(request, pk):
         "product": product,
     }
     return render(request, "products/update.html", context)
-
 
 @require_POST
 def like(request, pk):

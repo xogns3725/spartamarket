@@ -15,7 +15,11 @@
         <p>가격: {{ product.price | intcomma }}</p>
         <p>작성자: <a href="{% url 'users:profile' product.author.username %}">{{ product.author }}</a></p>
         <p>글 작성일: {{ product.created_at|date:"Y/m/d H:i" }}</p>
-        <p>#곰돌이 #빨강</p>
+        <p>해시태그:
+            {% for hashtag in product.hashtags.all %}
+                #{{ hashtag.tag }}
+            {% endfor %}
+            </p>
 
         
         <hr>

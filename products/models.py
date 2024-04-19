@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
 
+class Hashtag(models.Model):
+    tag = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.tag
 
 class Product(models.Model):
     title = models.CharField(max_length=50)
@@ -14,7 +19,8 @@ class Product(models.Model):
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through="ProductLike", related_name="like_products"
     )
-    
+    hashtags = models.ManyToManyField(Hashtag, related_name='hashtag')
+
     def __str__(self):
         return self.title
 
