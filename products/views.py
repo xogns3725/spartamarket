@@ -63,6 +63,7 @@ def update(request, pk):
         if form.is_valid():
             product = form.save(commit=False)
             product.save()
+            # 이전 해시태그 지우기
             product.hashtags.clear()
             hashtags_input = request.POST.get('hashtags')
             if hashtags_input:

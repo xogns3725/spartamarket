@@ -13,7 +13,7 @@
 
 ### ERD
 ---
-![image](https://github.com/xogns3725/spartamarket/assets/76471333/0438b0a2-f845-402e-9785-a108161963ce)
+![](https://velog.velcdn.com/images/xogns3725/post/5b7f658b-4ff3-4864-b27d-cbadf7cc832f/image.png)
 
 <br>
 
