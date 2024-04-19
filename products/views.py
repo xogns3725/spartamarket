@@ -104,4 +104,3 @@ def order(request):
         order_products = Product.objects.annotate(popular=Count(
             'like_users')).order_by('-popular', '-created_at')
     return render(request, 'products/products.html', {'order_products': order_products})
-

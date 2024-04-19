@@ -1,5 +1,7 @@
+from pyexpat import model
 from django.db import models
 from django.conf import settings
+
 
 
 class Product(models.Model):
@@ -14,6 +16,7 @@ class Product(models.Model):
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through="ProductLike", related_name="like_products"
     )
+    
     
     def __str__(self):
         return self.title

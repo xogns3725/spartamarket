@@ -23,13 +23,13 @@ def profile(request, username):
 @require_POST
 def follow(request, user_id):
     if request.user.is_authenticated:
-        member = get_object_or_404(get_user_model(), pk=user_id)
-        if request.user != member:
-            if request.user in member.followers.all():
-                member.followers.remove(request.user)
+        user = get_object_or_404(get_user_model(), pk=user_id)
+        if request.user != user:
+            if request.user in user.followers.all():
+                user.followers.remove(request.user)
             else:
-                member.followers.add(request.user)
-        return redirect("users:profile", member.username)
+                user.followers.add(request.user)
+        return redirect("users:profile", user.username)
     return redirect("accounts:login")
 
 
