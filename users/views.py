@@ -11,11 +11,13 @@ def users(request):
 def profile(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     liked_products = Product.objects.filter(like_users=user)
+    sell_products = Product.objects.filter(author=user)
     profile_image = User.objects.filter(username=username)
     context = {
         "user": user,
         'liked_products': liked_products,
-        'profile_image' : profile_image
+        'profile_image' : profile_image,
+        'sell_products' : sell_products,
     }
     return render(request, "users/profile.html", context)
 
